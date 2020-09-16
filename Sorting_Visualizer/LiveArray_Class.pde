@@ -19,11 +19,9 @@ public class LiveArray{
     array = new float[size];
     for(int i = 0; i < size; i++){
       array[i] = int(random(1)*yHt);
-      print(array[i] + "\n");
     }
    barWidth = (xWidth / (size)) - ((xWidth / size)/6);
    //- (9*(xWidth / (size))/10
-   print("Bar width is: " + barWidth);
   }
   
   public void dispArray(){
