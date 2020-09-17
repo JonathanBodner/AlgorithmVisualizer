@@ -178,6 +178,7 @@ public class LiveArray{
     }else if(a == (size-1)){
       fill(black);
       rect(xPos+(a*(xWt/size)), yPos, barWidth, array[a]*(-1));
+      sorted = true;
     }
     return sorted;
   }
