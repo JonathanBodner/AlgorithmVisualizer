@@ -4,7 +4,7 @@
 //variables
 int headerHeight;
 int startX, startY, resetX, resetY, buttonSize;
-int arrSize, sortDelay = 0;
+int arrSize, sortDelay;
 int arrPosX, arrPosY, arrWidth, arrHeight;
 int bufferPixels = width/10;
 color white = color(255), black = color(0), green = color(32,178,170);
@@ -62,19 +62,24 @@ void setup(){
   
   //display array - testing
   arrPosX = width/8;
-  arrPosY = height/2 + height/4;
+  arrPosY = height/2 + height/4 + height/8;
   arrWidth = 3*width/4;
   arrHeight = height/2;
-  arr1 = new LiveArray(30, sortDelay, arrPosX, arrPosY, arrWidth, arrHeight);
+  arrSize = 40;
+  sortDelay = 0;
+  arr1 = new LiveArray(arrSize, sortDelay, arrPosX, arrPosY, arrWidth, arrHeight);
   arr1.dispArray();
  
 }
 
 void draw(){
+  //check x and y mouse postions and if any buttons are hovered
   update(mouseX, mouseY);
   menuHovered = menu.overTab();
+  
   //To be done - testing
   boolean selSortDone = false;
+  
   //start button
   if(startHover){
      fill(grey);   
@@ -82,6 +87,7 @@ void draw(){
     fill(black); 
   }
   ellipse(startX, startY, buttonSize, buttonSize);
+  
   //reset button
   if(resetHover){
      resetColor = grey;   
@@ -95,19 +101,21 @@ void draw(){
   fill(resetColor);  
   ellipse(resetX, resetY, buttonSize/3, buttonSize/3);
   arc(resetX, resetY, buttonSize, buttonSize, PI+(QUARTER_PI), PI + HALF_PI);
-  delay(sortDelay);
   fill(white);
   triangle(resetX - buttonSize/15, resetY - buttonSize/15, resetX - buttonSize/4, resetY - buttonSize/5, resetX - buttonSize/20, resetY - buttonSize/4);
   
+  //If reset button is pressed, wipe array and create new one
   if(reset){
     running = false;
     //draw over old array
     fill(white);
     rect(arrPosX- bufferPixels, arrPosY+ bufferPixels, arrWidth + 2*bufferPixels, -arrHeight -2*bufferPixels);
     //new array
-    arr1 = new LiveArray(20, sortDelay, arrPosX, arrPosY, arrWidth, arrHeight);
+    arr1 = new LiveArray(arrSize, sortDelay, arrPosX, arrPosY, arrWidth, arrHeight);
     arr1.dispArray();
   }
+  
+  //If the array is being sorted, run sorting alg and display pause button until alg is finished
   if(running){
     if(!selSortDone){
       selSortDone = runSelSort();

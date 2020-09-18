@@ -4,7 +4,7 @@ public class LiveArray{
   float xPos, yPos;
   float xWt, yHt;
   int a, b, minPos;
-  int bufferPixels = 3;
+  int bufferPixels;
   float minVal;
   float[] array;
   float barWidth;
@@ -22,16 +22,17 @@ public class LiveArray{
       this.array[i] = int(random(1)*this.yHt);
     }
    this.barWidth = (xWt / size) - ((xWt / size)/6);
-   
+   this.bufferPixels = (int)(xWt/(size*8));
+   print(bufferPixels);
   }
   
   public void dispArray(){
     stroke(0);
     strokeWeight(4);
     //x axis
-    line(xPos-(2*bufferPixels), yPos+2, xPos+xWt+(bufferPixels*2), yPos+2);
+    line(xPos-(4*bufferPixels), yPos+2, xPos+xWt+(bufferPixels*4), yPos+2);
     //y axis
-    line(xPos-(2*bufferPixels), yPos+2, xPos-(2*bufferPixels), yPos-yHt);
+    line(xPos-(4*bufferPixels), yPos+2, xPos-(4*bufferPixels), yPos-yHt);
     noStroke();
     strokeWeight(1);
     fill(green);
@@ -50,7 +51,7 @@ public class LiveArray{
   
   public boolean incSelSort(){
     boolean sorted = false;
-    
+    delay(this.del);
     /*************************************************************************************/
     //if a = 0, do this to the array
     /*************************************************************************************/

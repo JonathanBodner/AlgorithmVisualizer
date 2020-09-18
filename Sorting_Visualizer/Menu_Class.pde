@@ -42,18 +42,18 @@ public class MenuBar{
       } 
        rect(xPos+((i-1)*stateWidth), yPos, stateWidth-thickness, yHt);
     }
-    stroke(0);
+    noStroke();
     strokeWeight(1);
   }
   
   public int overTab(){
+    //returns what tab of the menu is hovered over, and 0 if nothing is hovered
     int section = 0;
     float x = mouseX;
     float y = mouseY;
     if((y >= yPos) && (y <= (yPos+yHt))){
       for(int i = 1; i <= numStates; i++){
         if((x >= xPos + ((i-1)*stateWidth)) && (x <= (xPos + (i*stateWidth)))){
-          print(i);
           return i;
         }
       }
