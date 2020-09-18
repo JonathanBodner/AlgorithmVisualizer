@@ -4,7 +4,7 @@ public class LiveArray{
   float xPos, yPos;
   float xWt, yHt;
   int a, b, minPos;
-  int bufferPixels = 1;
+  int bufferPixels = 3;
   float minVal;
   float[] array;
   float barWidth;
@@ -29,16 +29,15 @@ public class LiveArray{
     stroke(0);
     strokeWeight(4);
     //x axis
-    line(xPos-4, yPos+2, xPos+xWt, yPos+2);
+    line(xPos-(2*bufferPixels), yPos+2, xPos+xWt+(bufferPixels*2), yPos+2);
     //y axis
-    line(xPos-4, yPos+2, xPos-4, yPos-yHt);
+    line(xPos-(2*bufferPixels), yPos+2, xPos-(2*bufferPixels), yPos-yHt);
     noStroke();
     strokeWeight(1);
     fill(green);
     for(int i = 0; i < size; i++){
       rect(xPos+(i*(xWt/size)), yPos, barWidth, array[i]*(-1));
     }
-    
   }
   
   public void swapArr(int indexA, int indexB){
@@ -86,7 +85,7 @@ public class LiveArray{
         swapArr(a, minPos);
         //make the swap look good by drawing over old rects in the positions
         fill(white);
-        rect(xPos+((a)*(xWt/size)), yPos, barWidth+bufferPixels, yHt*(-1));
+        rect(xPos+((a)*(xWt/size)) - bufferPixels, yPos, barWidth+(2*bufferPixels), yHt*(-1));
         rect(xPos+((minPos)*(xWt/size)), yPos, barWidth+bufferPixels, yHt*(-1));
         fill(green);
         rect(xPos+(b*(xWt/size)), yPos, barWidth, array[b-1]*(-1));
@@ -147,8 +146,8 @@ public class LiveArray{
         swapArr(a, minPos);
         //make the swap look good by drawing over old rects in the positions
         fill(white);
-        rect(xPos+((a)*(xWt/size)), yPos, barWidth+bufferPixels, yHt*(-1));
-        rect(xPos+((minPos)*(xWt/size)), yPos, barWidth+bufferPixels, yHt*(-1));
+        rect(xPos+((a)*(xWt/size))- bufferPixels, yPos, barWidth+(2*bufferPixels), yHt*(-1));
+        rect(xPos+((minPos)*(xWt/size))- bufferPixels, yPos, barWidth+(2*bufferPixels), yHt*(-1));
         fill(green);
         rect(xPos+((minPos)*(xWt/size)), yPos, barWidth, array[minPos]*(-1));
         rect(xPos+((size-1)*(xWt/size)), yPos, barWidth, array[size-1]*(-1));
@@ -192,6 +191,7 @@ public class LiveArray{
       }
   }
   
+  //To be deleted
   public void selectionSort(){
    float minVal, minLoc;
    for(int i = 0; i< size; i++){
