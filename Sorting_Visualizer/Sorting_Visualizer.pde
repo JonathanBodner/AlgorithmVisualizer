@@ -12,8 +12,11 @@ color red = color(255,0,0), blue = color(0,0,255), yellow = color(255,255,0);
 color grey = color(192), resetColor;
 boolean startHover = false, resetHover = false;
 boolean running = false, reset = false;
+String[] algNames = {"Selection Sort", "test1", "test2", "test3"};
 PFont f;
 float barWidth;
+int numAlgs = 3;
+int menuHovered = 0;
 LiveArray arr1;
 MenuBar menu;
 
@@ -49,8 +52,8 @@ void setup(){
   text("Jonathan Bodner\n2020", width - width/20, headerHeight/2);
   
   //MENU BAR SETUP - testing
-  menu = new MenuBar(headerHeight,3);
-  menu.changeMenu(2);
+  menu = new MenuBar(headerHeight,numAlgs, algNames);
+  menu.changeMenu(1);
   
   //start and reset buttons
   fill(black);
@@ -69,6 +72,7 @@ void setup(){
 
 void draw(){
   update(mouseX, mouseY);
+  menuHovered = menu.overTab();
   //To be done - testing
   boolean selSortDone = false;
   //start button
@@ -90,8 +94,10 @@ void draw(){
   ellipse(resetX, resetY, buttonSize/2, buttonSize/2);
   fill(resetColor);  
   ellipse(resetX, resetY, buttonSize/3, buttonSize/3);
-  arc(resetX, resetY, buttonSize, buttonSize, PI+(QUARTER_PI/2), PI + HALF_PI);
+  arc(resetX, resetY, buttonSize, buttonSize, PI+(QUARTER_PI), PI + HALF_PI);
   delay(sortDelay);
+  fill(white);
+  triangle(resetX - buttonSize/15, resetY - buttonSize/15, resetX - buttonSize/4, resetY - buttonSize/5, resetX - buttonSize/20, resetY - buttonSize/4);
   
   if(reset){
     running = false;
@@ -118,7 +124,7 @@ void draw(){
     fill(white);
     triangle(startX - (buttonSize/6), startY - (buttonSize/6),startX+buttonSize/4 ,startY , startX - (buttonSize/6), startY + (buttonSize/6));
   }
-  print(running);
+  //print(running);
   //print(selSortDone);
   reset = false;
 }
@@ -129,6 +135,11 @@ void mousePressed(){
   }
   if(resetHover){
     reset = true;
+  }
+  for(int i = 1; i <= numAlgs; i++){
+    if(menuHovered == i){
+    menu.changeMenu(i);
+    }
   }
 }
 
@@ -163,6 +174,8 @@ boolean overReset(int x, int y, int diameter) {
     return false;
   }
 }
+
+
 
 boolean runSelSort(){ 
   boolean isSorted = false;
