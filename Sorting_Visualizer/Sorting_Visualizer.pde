@@ -3,6 +3,7 @@
 
 //variables
 int headerHeight;
+int maxFontSize;
 int startX, startY, resetX, resetY, buttonSize;
 int arrSize, sortDelay;
 int arrPosX, arrPosY, arrWidth, arrHeight;
@@ -23,14 +24,14 @@ MenuBar menu;
 //////////////////////////////////////////////////////////////////////////////////////////////
 //SETUP
 void setup(){
-  size(1000, 1000);
+  size(800, 800);
   background(255,255,255);
   noStroke();
   //FONT CREATION
-  printArray(PFont.list());
+  //printArray(PFont.list());
   f = loadFont("ProcessingSansPro-Semibold-30.vlw");
   textFont(f);
-  
+  maxFontSize = width/10;
   //HEADER CREATION
   headerHeight = height/10;
   startX = height/2 - height/10;
@@ -44,11 +45,11 @@ void setup(){
   rect(0,0,width, headerHeight);
   //Header text - title and extra info
   fill(white);
-  textSize(40);
   textAlign(CENTER, CENTER);
+  textSize(maxFontSize/2);
   text("Algorithm Visualizer", width/2, headerHeight/2);
   textAlign(RIGHT, CENTER);
-  textSize(10);
+  textSize(maxFontSize/8);
   text("Jonathan Bodner\n2020", width - width/20, headerHeight/2);
   
   //MENU BAR SETUP - testing

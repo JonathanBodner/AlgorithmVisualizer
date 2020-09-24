@@ -8,7 +8,8 @@ public class LiveArray{
   float minVal;
   float[] array;
   float barWidth;
-  
+
+  //Creates a new array object
   public LiveArray(int chosenSize, int delay, float xPosition, float yPosition, float xWidth, float yHeight){
     this.size = chosenSize;
     this.del = delay;
@@ -16,45 +17,54 @@ public class LiveArray{
     this.yPos = yPosition;
     this.xWt = xWidth;
     this.yHt = yHeight;
-    //make new array with random values for each element
+    //make new array with given size 
     this.array = new float[size];
+    //assign a random value to each value in the array
     for(int i = 0; i < size; i++){
       this.array[i] = int(random(1)*this.yHt);
     }
+    //determine the width of each bar based on the array size
    this.barWidth = (xWt / size) - ((xWt / size)/6);
+   //buffer pixels prevent strange 1px wide bars appearing
    this.bufferPixels = (int)(xWt/(size*8));
-   print(bufferPixels);
+   //print(bufferPixels);
   }
   
+  //Displays the current array as is 
   public void dispArray(){
-    stroke(0);
+    //draws both axis of the array in black
+    stroke(black);
     strokeWeight(4);
     //x axis
     line(xPos-(4*bufferPixels), yPos+2, xPos+xWt+(bufferPixels*4), yPos+2);
     //y axis
     line(xPos-(4*bufferPixels), yPos+2, xPos-(4*bufferPixels), yPos-yHt);
+    //reset stroke variables
     noStroke();
     strokeWeight(1);
+    //draws each bar of the array as rectangles in the specified color 
     fill(green);
     for(int i = 0; i < size; i++){
       rect(xPos+(i*(xWt/size)), yPos, barWidth, array[i]*(-1));
     }
   }
   
+  //swaps two values of the array given their index
   public void swapArr(int indexA, int indexB){
     float temp = array[indexA];
     array[indexA] = array[indexB];
     array[indexB] = temp;
-    
-    //maybe add rectangles here instead???
+    //maybe draw rectangles here instead??? TBD
   }
   
+  //performs one step in the selection sort algorithm based on the current position 
+  //variable a is the starting index of the unsorted component of the array
+  //variable b increments from a to the end of the array and looks for the minimum value
+  //after b has reached the end, the min is swapped with the value at a, and then a is incremented
   public boolean incSelSort(){
     boolean sorted = false;
     delay(this.del);
-    /*************************************************************************************/
-    //if a = 0, do this to the array
-    /*************************************************************************************/
+    //while a=0
     if((a==0)){
       //starting case, set min and increment b
       if(b==0){

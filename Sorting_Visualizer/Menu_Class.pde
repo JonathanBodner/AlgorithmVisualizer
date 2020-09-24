@@ -10,8 +10,9 @@ public class MenuBar{
   color grey = color(192), green = color(32,178,170);
   String[] algNames;
   PFont f = loadFont("ProcessingSansPro-Semibold-30.vlw");
+  int maxFontSize = (int)(width/10);
   
-  
+  //creates and displays the menu bar
   public MenuBar(int headerHeight, int numAlgs, String[] algs){
     //assign variables
     this.state = homeState;
@@ -26,16 +27,17 @@ public class MenuBar{
     rect(xPos,yPos,xWt,yHt);
     //draws menu boxes and selects default state (0)
     changeMenu(state);
+    fill(white);
+    textFont(f);
+    textAlign(CENTER, CENTER);
+    textSize(maxFontSize/3);
     //display titles of the menu
     for(int i = 0; i < numStates; i++){
-      fill(white);
-      textSize(20);
-      textFont(f);
-      textAlign(CENTER, CENTER);
       text(algs[i], xPos+(i*stateWidth)+stateWidth/2, headerHeight+yHt/2);
     }
   }
   
+  //updates the current part of the menu that is selected
   public void changeMenu(int newState){
     //update current state
     this.state = newState;
@@ -60,6 +62,7 @@ public class MenuBar{
     strokeWeight(1);
   }
   
+  //returns an integer with the section of the menu that the mouse is over
   public int overTab(){
     //returns what tab of the menu is hovered over, and 0 if nothing is hovered
     float x = mouseX;
