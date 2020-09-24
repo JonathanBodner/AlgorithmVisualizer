@@ -65,8 +65,8 @@ void setup(){
   arrPosY = height/2 + height/4 + height/8;
   arrWidth = 3*width/4;
   arrHeight = height/2;
-  arrSize = 40;
-  sortDelay = 0;
+  arrSize = 20;
+  sortDelay = 50;
   arr1 = new LiveArray(arrSize, sortDelay, arrPosX, arrPosY, arrWidth, arrHeight);
   arr1.dispArray();
  

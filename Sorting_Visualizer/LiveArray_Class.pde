@@ -192,7 +192,7 @@ public class LiveArray{
       }
   }
   
-  //To be deleted
+  //To be deleted? unless we want a fast forward option
   public void selectionSort(){
    float minVal, minLoc;
    for(int i = 0; i< size; i++){
