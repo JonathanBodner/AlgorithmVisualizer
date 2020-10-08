@@ -57,6 +57,12 @@ public class LiveArray{
     //maybe draw rectangles here instead??? TBD
   }
   
+  //draw rectangle
+  public void drawRect(color col, float xPos, float yHt, float rectHeight, float rectWidth){
+    fill(col);
+    rect(xPos, yHt, rectWidth, rectHeight);
+  }
+  
   //performs one step in the selection sort algorithm based on the current position 
   //variable a is the starting index of the unsorted component of the array
   //variable b increments from a to the end of the array and looks for the minimum value
@@ -70,6 +76,7 @@ public class LiveArray{
       if(b==0){
         minVal = array[a];
         minPos = a;
+        //drawRect(red, xPos+(a*(xWt/size)) 
         fill(red);
         rect(xPos+(a*(xWt/size)), yPos, barWidth, array[a]*(-1));
         b++;
@@ -194,13 +201,12 @@ public class LiveArray{
   }
   
   public void bubbleSort(){
-      for(int i = 0; i< size; i++){
-        //array
-        if(array[i] > array[i+1]){
-          
-        }
-      }
+         
+       
   }
+  
+  
+  
   
   //To be deleted? unless we want a fast forward option
   public void selectionSort(){
