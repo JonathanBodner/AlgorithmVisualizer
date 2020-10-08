@@ -13,7 +13,7 @@ color red = color(255,0,0), blue = color(0,0,255), yellow = color(255,255,0);
 color grey = color(192), resetColor;
 boolean startHover = false, resetHover = false;
 boolean running = false, reset = false;
-String[] algNames = {"Selection Sort", "test1", "test2", "test3"};
+String[] algNames = {"Selection Sort", "Bubble Sort", "test2", "test3"};
 PFont f;
 float barWidth;
 int numAlgs = 3;
@@ -79,7 +79,7 @@ void draw(){
   menuHovered = menu.overTab();
   
   //To be done - testing
-  boolean selSortDone = false;
+  boolean sortDone = false;
   
   //start button
   if(startHover){
@@ -118,14 +118,14 @@ void draw(){
   
   //If the array is being sorted, run sorting alg and display pause button until alg is finished
   if(running){
-    if(!selSortDone){
-      selSortDone = runSelSort();
+    if(!sortDone){
+      sortDone = runBubSort();
       //draw pause button
       fill(white);
       rect(startX - (buttonSize/15), startY - (buttonSize/6), -buttonSize/8, buttonSize/3 );
       rect(startX + (buttonSize/15), startY - (buttonSize/6), buttonSize/8, buttonSize/3 );
     }
-    if(selSortDone){
+    if(sortDone){
       running = false;
     }
   }else{
@@ -185,9 +185,14 @@ boolean overReset(int x, int y, int diameter) {
 }
 
 
-
 boolean runSelSort(){ 
   boolean isSorted = false;
   isSorted  = arr1.incSelSort();
+  return isSorted;
+}
+
+boolean runBubSort(){
+  boolean isSorted = false;
+  isSorted  = arr1.bubbleSort();
   return isSorted;
 }

@@ -2,13 +2,18 @@ public class LiveArray{
   int size;
   int del;
   float xPos, yPos;
-  float xWt, yHt;
-  int a, b, minPos;
+  float xWt, yHt; 
   int bufferPixels;
-  float minVal;
   float[] array;
   float barWidth;
-
+  
+  //Selection sort
+  int a, b, minPos;
+  float minVal;
+  
+  //bubble sort
+  int sortSize, sortIndex;
+  
   //Creates a new array object
   public LiveArray(int chosenSize, int delay, float xPosition, float yPosition, float xWidth, float yHeight){
     this.size = chosenSize;
@@ -28,6 +33,7 @@ public class LiveArray{
    //buffer pixels prevent strange 1px wide bars appearing
    this.bufferPixels = (int)(xWt/(size*8));
    //print(bufferPixels);
+   this.sortSize = size;
   }
   
   //Displays the current array as is 
@@ -58,7 +64,7 @@ public class LiveArray{
   }
   
   //draw rectangle
-  public void drawRect(color col, float xPos, float yHt, float rectHeight, float rectWidth){
+  public void drawRect(color col, float xPos, float yHt, float rectWidth, float rectHeight){
     fill(col);
     rect(xPos, yHt, rectWidth, rectHeight);
   }
@@ -200,13 +206,38 @@ public class LiveArray{
     return sorted;
   }
   
-  public void bubbleSort(){
-         
-       
+  public boolean bubbleSort(){
+    boolean sorted = false; 
+    
+    if(sortSize != 1){
+        if(array[sortIndex] > array[sortIndex + 1]){
+          //swap the thingys
+          //white rectangles to clear
+          drawRect(white,xPos+((sortIndex)*(xWt/size))- bufferPixels, yPos, barWidth+(2*bufferPixels), yHt*(-1));
+          drawRect(white,xPos+((sortIndex+1)*(xWt/size))- bufferPixels, yPos, barWidth+(2*bufferPixels), yHt*(-1));
+          //swap the mins
+          swapArr(sortIndex, sortIndex+1);
+          //draw swapped values
+          drawRect(green, xPos+(sortIndex*(xWt/size)), yPos, barWidth, array[sortIndex]*(-1));
+          drawRect(green, xPos+((sortIndex+1)*(xWt/size)), yPos, barWidth, array[sortIndex+1]*(-1));
+        }
+        //increment index
+        sortIndex++;
+        if(sortIndex+1 == sortSize){
+           drawRect(black, xPos+((sortSize-1)*(xWt/size)), yPos, barWidth, array[sortSize-1]*(-1));
+           sortSize--;
+           sortIndex = 0;
+        }
+    }else{
+      drawRect(black, xPos+((sortSize-1)*(xWt/size)), yPos, barWidth, array[sortSize-1]*(-1));
+      sorted = true;
+    }
+    
+    return sorted;    
   }
   
   
-  
+ 
   
   //To be deleted? unless we want a fast forward option
   public void selectionSort(){
