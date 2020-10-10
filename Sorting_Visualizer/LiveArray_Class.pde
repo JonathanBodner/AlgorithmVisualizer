@@ -73,7 +73,7 @@ public class LiveArray{
   //variable a is the starting index of the unsorted component of the array
   //variable b increments from a to the end of the array and looks for the minimum value
   //after b has reached the end, the min is swapped with the value at a, and then a is incremented
-  public boolean incSelSort(){
+  public boolean selectionSort(){
     boolean sorted = false;
     delay(this.del);
     //while a=0
@@ -208,7 +208,9 @@ public class LiveArray{
   
   public boolean bubbleSort(){
     boolean sorted = false; 
-    
+    //Sort size starts at the size of the array, and decreases by one every time the index reaches the end
+    //The index increments by 1 every iteration, if the value at the index is larger than the value at index+1, they are swapped
+    //This eventually will bring the largest value to the end of the array, then 
     if(sortSize != 1){
         if(array[sortIndex] > array[sortIndex + 1]){
           //swap the thingys
@@ -223,6 +225,7 @@ public class LiveArray{
         }
         //increment index
         sortIndex++;
+        //
         if(sortIndex+1 == sortSize){
            drawRect(black, xPos+((sortSize-1)*(xWt/size)), yPos, barWidth, array[sortSize-1]*(-1));
            sortSize--;
@@ -240,7 +243,7 @@ public class LiveArray{
  
   
   //To be deleted? unless we want a fast forward option
-  public void selectionSort(){
+  public void instSelectionSort(){
    float minVal, minLoc;
    for(int i = 0; i< size; i++){
      minVal = array[i];

@@ -80,7 +80,7 @@ void draw(){
   
   //To be done - testing
   boolean sortDone = false;
-  
+  delay(50);
   //start button
   if(startHover){
      fill(grey);   
@@ -153,7 +153,7 @@ void mousePressed(){
 }
 
 void update(int x, int y) {
-  if ( overStart(startX, startY, buttonSize)){
+  if (overStart(startX, startY, buttonSize)){
     startHover = true;
     resetHover = false;
   } else if(overReset(resetX, resetY, buttonSize)){
@@ -187,7 +187,7 @@ boolean overReset(int x, int y, int diameter) {
 
 boolean runSelSort(){ 
   boolean isSorted = false;
-  isSorted  = arr1.incSelSort();
+  isSorted  = arr1.selectionSort();
   return isSorted;
 }
 
