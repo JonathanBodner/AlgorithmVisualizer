@@ -52,7 +52,7 @@ public class MenuBar{
         stroke(green);
       }else{
         //unselected state color
-        stroke(0);
+        stroke(black);
       } 
       //rectangular box that is hollow
       rect(xPos+((i-1)*stateWidth), yPos, stateWidth-thickness, yHt);
@@ -75,5 +75,10 @@ public class MenuBar{
       }
     }
     return 0;
+  }
+  
+  //grey out other algorithms so they cannot change while the sort is running.
+  public void sortRunning(){
+    
   }
 }

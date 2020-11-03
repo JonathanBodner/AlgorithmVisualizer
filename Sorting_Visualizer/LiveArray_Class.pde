@@ -7,11 +7,11 @@ public class LiveArray{
   float[] array;
   float barWidth;
   
-  //Selection sort
+  //Selection sort variables
   int a, b, minPos;
   float minVal;
   
-  //bubble sort
+  //bubble sort variables
   int sortSize, sortIndex;
   
   //Creates a new array object
@@ -235,7 +235,6 @@ public class LiveArray{
       drawRect(black, xPos+((sortSize-1)*(xWt/size)), yPos, barWidth, array[sortSize-1]*(-1));
       sorted = true;
     }
-    
     return sorted;    
   }
   

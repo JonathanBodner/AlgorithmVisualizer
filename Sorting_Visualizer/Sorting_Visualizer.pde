@@ -61,7 +61,7 @@ void setup(){
   ellipse(startX, startY, buttonSize, buttonSize);
   ellipse(resetX, resetY, buttonSize, buttonSize);
   
-  //display array - testing
+  //display array -- TESTING
   arrPosX = width/8;
   arrPosY = height/2 + height/4 + height/8;
   arrWidth = 3*width/4;
@@ -164,6 +164,7 @@ void update(int x, int y) {
   }
 }
 
+//return true if the mouse is hovering the start button
 boolean overStart(int x, int y, int diameter) {
   float disX = x - mouseX;
   float disY = y - mouseY;
@@ -174,6 +175,7 @@ boolean overStart(int x, int y, int diameter) {
   }
 }
 
+//return true if the mouse is hovering the reset button
 boolean overReset(int x, int y, int diameter) {
   float disX = x - mouseX;
   float disY = y - mouseY;
@@ -184,13 +186,14 @@ boolean overReset(int x, int y, int diameter) {
   }
 }
 
-
+//method to run selection sort on the array
 boolean runSelSort(){ 
   boolean isSorted = false;
   isSorted  = arr1.selectionSort();
   return isSorted;
 }
 
+//method to run bubble sort on the array
 boolean runBubSort(){
   boolean isSorted = false;
   isSorted  = arr1.bubbleSort();
