@@ -47,7 +47,7 @@ public class MenuBar{
     //draw borders around boxes, different color for the current state
     noFill();
     for(int i = 0; i <= numStates; i++){
-      if((i == newState) && (i != 0)){
+      if((i == newState) && (i != -1)){
         //selected state color
         stroke(green);
       }else{
@@ -55,7 +55,7 @@ public class MenuBar{
         stroke(black);
       } 
       //rectangular box that is hollow
-      rect(xPos+((i-1)*stateWidth), yPos, stateWidth-thickness, yHt);
+      rect(xPos+((i)*stateWidth), yPos, stateWidth-thickness, yHt);
     }
     noStroke();
     //return to regular stroke wieght
@@ -64,21 +64,25 @@ public class MenuBar{
   
   //returns an integer with the section of the menu that the mouse is over
   public int overTab(){
-    //returns what tab of the menu is hovered over, and 0 if nothing is hovered
+    //returns what tab of the menu is hovered over, and - 1 if nothing is hovered
     float x = mouseX;
     float y = mouseY;
     if((y >= yPos) && (y <= (yPos+yHt))){
-      for(int i = 1; i <= numStates; i++){
-        if((x >= xPos + ((i-1)*stateWidth)) && (x <= (xPos + (i*stateWidth)))){
+      for(int i = 0; i < numStates; i++){
+        if((x >= xPos + ((i)*stateWidth)) && (x <= (xPos + ((i+1)*stateWidth)))){
           return i;
         }
       }
     }
-    return 0;
+    return -1;
   }
   
   //grey out other algorithms so they cannot change while the sort is running.
   public void sortRunning(){
     
+  }
+  
+  public int getState(){
+    return this.state;
   }
 }

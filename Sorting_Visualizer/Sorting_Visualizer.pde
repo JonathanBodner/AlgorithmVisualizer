@@ -1,7 +1,7 @@
-//making a sorting visualizer for learning and displaying sorting algorithms
-//Jonathan Bodner, 2020
+//A visualizer for learning and displaying sorting algorithms
+//Jonathan Bodner
 
-//variables
+//Variables
 int headerHeight;
 int maxFontSize;
 int startX, startY, resetX, resetY, buttonSize;
@@ -16,22 +16,23 @@ boolean running = false, reset = false;
 String[] algNames = {"Selection Sort", "Bubble Sort", "test2", "test3"};
 PFont f;
 float barWidth;
-int numAlgs = 3;
-int menuHovered = 0;
+int numAlgs = 2;
+int menuHovered = -1;
 LiveArray arr1;
 MenuBar menu;
 
-//////////////////////////////////////////////////////////////////////////////////////////////
+
 //SETUP
 void setup(){
   size(1000, 1000);
   background(255,255,255);
   noStroke();
+  
   //FONT CREATION
-  //printArray(PFont.list());
   f = loadFont("ProcessingSansPro-Semibold-30.vlw");
   textFont(f);
   maxFontSize = width/10;
+  
   //HEADER CREATION
   headerHeight = height/10;
   startX = height/2 - height/10;
@@ -39,51 +40,50 @@ void setup(){
   resetX = height/2 + height/10;
   resetY = 2*width/10;
   buttonSize = width/15;
-  
   //Header background
   fill(black);
   rect(0,0,width, headerHeight);
-  //Header text - title and extra info
+  //Header text - title & extra info
   fill(white);
   textAlign(CENTER, CENTER);
   textSize(maxFontSize/2);
   text("Algorithm Visualizer", width/2, headerHeight/2);
   textAlign(RIGHT, CENTER);
   textSize(maxFontSize/8);
-  text("Jonathan Bodner\n2020", width - width/20, headerHeight/2);
+  text("Jonathan Bodner", width - width/20, headerHeight/2);
   
-  //MENU BAR SETUP - testing
-  menu = new MenuBar(headerHeight,numAlgs, algNames);
-  menu.changeMenu(1);
+  //MENU BAR SETUP
+  menu = new MenuBar(headerHeight, numAlgs, algNames);
+  menu.changeMenu(0);
   
-  //start and reset buttons
+  //START AND RESET BUTTONS
   fill(black);
   ellipse(startX, startY, buttonSize, buttonSize);
   ellipse(resetX, resetY, buttonSize, buttonSize);
   
-  //display array -- TESTING
+  //CREATE INITIAL ARRAY -- Currently w/o user input for size or delay. To be added
   arrPosX = width/8;
   arrPosY = height/2 + height/4 + height/8;
   arrWidth = 3*width/4;
   arrHeight = height/2;
-  arrSize = 20;
-  sortDelay = 50;
+  arrSize = 50;
+  sortDelay = 10;
   arr1 = new LiveArray(arrSize, sortDelay, arrPosX, arrPosY, arrWidth, arrHeight);
   arr1.dispArray();
  
 }
 
 void draw(){
-  //check x and y mouse postions and if any buttons are hovered
+  //Check x and y mouse postions and if any buttons are hovered
   update(mouseX, mouseY);
   menuHovered = menu.overTab();
   
   //To be done - testing
   boolean sortDone = false;
-  delay(50);
-  //start button
+  
+  //Start button
   if(startHover){
-     fill(grey);   
+    fill(grey);   
   }else{
     fill(black); 
   }
@@ -110,26 +110,33 @@ void draw(){
     running = false;
     //draw over old array
     fill(white);
-    rect(arrPosX- bufferPixels, arrPosY+ bufferPixels, arrWidth + 2*bufferPixels, -arrHeight -2*bufferPixels);
+    rect(arrPosX-bufferPixels, arrPosY+bufferPixels, arrWidth+2*bufferPixels, -arrHeight-2*bufferPixels);
     //new array
     arr1 = new LiveArray(arrSize, sortDelay, arrPosX, arrPosY, arrWidth, arrHeight);
     arr1.dispArray();
   }
   
   //If the array is being sorted, run sorting alg and display pause button until alg is finished
+  int currState=menu.getState();
   if(running){
-    if(!sortDone){
-      sortDone = runBubSort();
-      //draw pause button
+    if(!sortDone){ 
+      switch(algNames[currState]){
+        case "Selection Sort":
+          sortDone = runSelSort();
+          break;
+        case "Bubble Sort":
+          sortDone = runBubSort();
+          break;
+      }
+      //draw pause symbol on start button
       fill(white);
       rect(startX - (buttonSize/15), startY - (buttonSize/6), -buttonSize/8, buttonSize/3 );
       rect(startX + (buttonSize/15), startY - (buttonSize/6), buttonSize/8, buttonSize/3 );
-    }
-    if(sortDone){
+    }if(sortDone){
       running = false;
     }
   }else{
-    //draw play button
+    //draw play symbol on start button
     fill(white);
     triangle(startX - (buttonSize/6), startY - (buttonSize/6),startX+buttonSize/4 ,startY , startX - (buttonSize/6), startY + (buttonSize/6));
   }
@@ -145,13 +152,14 @@ void mousePressed(){
   if(resetHover){
     reset = true;
   }
-  for(int i = 1; i <= numAlgs; i++){
-    if(menuHovered == i){
+  for(int i = 0; i < numAlgs; i++){
+    if((menuHovered == i) && !running){
     menu.changeMenu(i);
     }
   }
 }
 
+//Updates mouse position vairables 
 void update(int x, int y) {
   if (overStart(startX, startY, buttonSize)){
     startHover = true;

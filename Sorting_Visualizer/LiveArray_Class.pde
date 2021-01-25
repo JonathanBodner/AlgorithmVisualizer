@@ -207,7 +207,8 @@ public class LiveArray{
   }
   
   public boolean bubbleSort(){
-    boolean sorted = false; 
+    boolean sorted = false;
+    delay(this.del);
     //Sort size starts at the size of the array, and decreases by one every time the index reaches the end
     //The index increments by 1 every iteration, if the value at the index is larger than the value at index+1, they are swapped
     //This eventually will bring the largest value to the end of the array, then 
